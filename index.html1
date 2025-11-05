@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMKA Annur</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>SMKA Annur</h1>
+    <p>Jl. Sunan Giri No.6, Dusun Kaliamas, Kalirejo, Kec. Dringu, Kabupaten Probolinggo, Jawa Timur 67237</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#tkj">Teknik Komputer dan Jaringan</a></li>
+      <li><a href="#keperawatan">Asisten Keperawatan</a></li>
+      <li><a href="#kontak">0896-7583-1352</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="tkj">
+      <h2>Jurusan Teknik Komputer dan Jaringan</h2>
+      <p>Jurusan TKJ membekali siswa dengan keterampilan instalasi jaringan, pemrograman dasar, dan perawatan perangkat keras komputer.</p>
+    </section>
+
+    <section id="keperawatan">
+      <h2>Jurusan Asisten Keperawatan</h2>
+      <p>Jurusan ini mempersiapkan siswa menjadi tenaga kesehatan yang kompeten dalam pelayanan dasar keperawatan dan praktik klinis.</p>
+    </section>
+
+    <section id="kontak">
+      <h2>Kontak</h2>
+      <p>Email: info@smka-annur.sch.id</p>
+      <p>Telepon: 0896-7583-1352</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SMKA Annur. Semua hak dilindungi.</p>
+  </footer>
+</body>
+</html>
