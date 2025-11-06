@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekapan Kehadiran Siswa</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f3f6fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1f4e79;
+    }
+
+    .form-container {
+      background: #fff;
+      max-width: 420px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #1f4e79;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #173b5c;
+    }
+
+    table {
+      width: 90%;
+      margin: 30px auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background-color: #1f4e79;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f7ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📅 Rekapan Kehadiran Siswa</h1>
+
+  <div class="form-container">
+    <label>Nama Siswa:</label>
+    <input type="text" id="nama" placeholder="Masukkan nama siswa">
+
+    <label>Jumlah Alfa:</label>
+    <input type="number" id="alfa" placeholder="0" min="0">
+
+    <label>Jumlah Izin:</label>
+    <input type="number" id="izin" placeholder="0" min="0">
+
+    <label>Jumlah Sakit:</label>
+    <input type="number" id="sakit" placeholder="0" min="0">
+
+    <label>Total Hari Belajar:</label>
+    <input type="number" id="total" placeholder="misal 30" min="1">
+
+    <button onclick="tambahData()">Tambahkan Data</button>
+  </div>
+
+  <table id="tabelData">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Alfa</th>
+        <th>Izin</th>
+        <th>Sakit</th>
+        <th>Total Hari</th>
+        <th>Hadir (%)</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    const tabel = document.querySelector("#tabelData tbody");
+
+    function tambahData() {
+      const nama = document.getElementById("nama").value;
+      const alfa = parseInt(document.getElementById("alfa").value || 0);
+      const izin = parseInt(document.getElementById("izin").value || 0);
+      const sakit = parseInt(document.getElementById("sakit").value || 0);
+      const total = parseInt(document.getElementById("total").value);
+
+      if (!nama || isNaN(total) || total <= 0) {
+        alert("Mohon isi nama dan total hari belajar dengan benar!");
+        return;
+      }
+
+      const tidakHadir = alfa + izin + sakit;
+      const hadirPersen = (((total - tidakHadir) / total) * 100).toFixed(2);
+
+      let keterangan = "";
+      if (hadirPersen >= 90) keterangan = "Baik";
+      else if (hadirPersen >= 75) keterangan = "Cukup";
+      else keterangan = "Kurang";
+
+      const row = `
+        <tr>
+          <td>${nama}</td>
+          <td>${alfa}</td>
+          <td>${izin}</td>
+          <td>${sakit}</td>
+          <td>${total}</td>
+          <td>${hadirPersen}%</td>
+          <td>${keterangan}</td>
+        </tr>
+      `;
+
+      tabel.innerHTML += row;
+
+      // Reset input
+      document.getElementById("nama").value = "";
+      document.getElementById("alfa").value = "";
+      document.getElementById("izin").value = "";
+      document.getElementById("sakit").value = "";
+      document.getElementById("total").value = "";
+    }
+  </script>
+
+</body>
+</html>
