@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rekapan Absensi X TKJ</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekapan Absensi Bulanan X TKJ</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Rekapan Absensi Siswa Kelas X TKJ</h1>
-    <p>Tanggal: <span id="tanggal"></span></p>
   </header>
 
   <main>
-    <table id="absensiTable">
+    <div class="form-section">
+      <label for="tanggal">Tanggal:</label>
+      <input type="date" id="tanggal" />
+      <button id="loadTable">Muat Daftar Siswa</button>
+    </div>
+
+    <table id="absensiTable" class="hidden">
       <thead>
         <tr>
           <th>No</th>
@@ -21,14 +26,21 @@
           <th>Keterangan</th>
         </tr>
       </thead>
-      <tbody id="absensiBody">
-        <!-- Data siswa akan dimuat lewat script.js -->
-      </tbody>
+      <tbody id="absensiBody"></tbody>
     </table>
 
-    <button id="rekapBtn">Simpan & Lihat Rekap</button>
+    <button id="simpanBtn" class="hidden">Simpan Absensi</button>
 
-    <div id="rekapContainer"></div>
+    <hr>
+
+    <div class="rekap-section">
+      <h2>Rekap Bulanan</h2>
+      <label for="bulan">Pilih Bulan:</label>
+      <input type="month" id="bulan">
+      <button id="tampilRekap">Tampilkan Rekap</button>
+
+      <div id="rekapContainer"></div>
+    </div>
   </main>
 
   <script src="script.js"></script>
