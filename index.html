@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-       <title>profil saya - rifqi</title>
-       <link rel="stylesheet"href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekapan Absensi X TKJ</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="kartu-profil">
-    <img src="Main-Screen-JPEG.jpg" alt="Foto profil saya">
-    <h1>Nama Lengkap anda</h1>
-    <p>Siswa SMK yang tertarik dengan teknologi dan desain.selamat datang di website pertama saya 
-    <a href="https://www,instagram.com/usernameanda">kunjungi instagram saya</a>
-    <button id="sapaButton">Sapa Saya!</button>
-   </div>
-<scipt scr="scipt.js"></scipt>
+  <header>
+    <h1>Rekapan Absensi Siswa Kelas X TKJ</h1>
+    <p>Tanggal: <span id="tanggal"></span></p>
+  </header>
+
+  <main>
+    <table id="absensiTable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Siswa</th>
+          <th>Keterangan</th>
+        </tr>
+      </thead>
+      <tbody id="absensiBody">
+        <!-- Data siswa akan dimuat lewat script.js -->
+      </tbody>
+    </table>
+
+    <button id="rekapBtn">Simpan & Lihat Rekap</button>
+
+    <div id="rekapContainer"></div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
