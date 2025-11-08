@@ -1,20 +1,68 @@
 body {
-    background-color:#ffffE0; /* Warna kuning cerah */
-    font-family: Arial, sans-serif; /* Jenis huruf yang bersih dan mudah di baca */
-    color:#191970; /* Warna teks utama (Orange) */
+  font-family: Arial, sans-serif;
+  background-color: #f5f8fa;
+  margin: 0;
+  padding: 0;
 }
 
- .kartu-profil {
-     width: 300px;
-     margin: 50px auto; /* 50px jarak atas/bawah, auto menengahkan kiri/kanan */
-     padding: 20px:
-     background-color: blue;
-     border-radius: 15px; /* Membuat sudut menjadi melengkung */
-     box-shadow: 0 4px 8px rgba (0,0,0,0.1); /*Efek Bayangan */
-     text-align: center: /* Menengahkan semua teks di dalam kartu */
+header {
+  background-color: #0078d7;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
+main {
+  max-width: 900px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-  .kartu-profil img {
-      width: 150px;
-      border-radius: 50%: /* Trik untuk membuat gambar persegi menjadi lingkaran sempurna */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #0078d7;
+  color: white;
+}
+
+select {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+#rekapContainer {
+  margin-top: 20px;
+}
+
+#rekapContainer table {
+  margin-top: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
