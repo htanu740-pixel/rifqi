@@ -21,10 +21,21 @@ main {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+h2 {
+  color: #0078d7;
+}
+
+.form-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 th, td {
@@ -38,19 +49,15 @@ th {
   color: white;
 }
 
-select {
-  padding: 5px;
+select, input, button {
+  padding: 8px;
   border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 button {
-  display: block;
-  margin: 20px auto;
   background-color: #0078d7;
   color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -58,11 +65,11 @@ button:hover {
   background-color: #005fa3;
 }
 
-#rekapContainer {
-  margin-top: 20px;
+.hidden {
+  display: none;
 }
 
 #rekapContainer table {
-  margin-top: 10px;
+  margin-top: 15px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
