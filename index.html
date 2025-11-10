@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rekapan Absensi Bulanan X TKJ</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rekap Absensi Kelas X TKJ</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Rekapan Absensi Siswa Kelas X TKJ</h1>
+    <div class="nav">
+      <img src="logo-smk.png" alt="Logo SMK" class="logo" />
+      <h1>SMK NEGERI 1 BANDUNG</h1>
+      <p>Kelas X TKJ — Rekapan Absensi Modern</p>
+    </div>
   </header>
 
   <main>
-    <div class="form-section">
-      <label for="tanggal">Tanggal:</label>
-      <input type="date" id="tanggal" />
-      <button id="loadTable">Muat Daftar Siswa</button>
-    </div>
+    <div class="container">
+      <!-- Input Absensi -->
+      <div class="card">
+        <h2>📅 Input Absensi Harian</h2>
+        <div class="form">
+          <label for="tanggal">Tanggal</label>
+          <input type="date" id="tanggal" />
 
-    <table id="absensiTable" class="hidden">
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Nama Siswa</th>
-          <th>Keterangan</th>
-        </tr>
-      </thead>
-      <tbody id="absensiBody"></tbody>
-    </table>
+          <label for="nama">Nama Siswa</label>
+          <select id="nama"></select>
 
-    <button id="simpanBtn" class="hidden">Simpan Absensi</button>
+          <label for="status">Keterangan</label>
+          <select id="status">
+            <option value="Hadir">✅ Hadir</option>
+            <option value="Izin">🟡 Izin</option>
+            <option value="Sakit">🟠 Sakit</option>
+            <option value="Alpa">🔴 Alpa</option>
+          </select>
 
-    <hr>
+          <button id="tambahBtn">+ Simpan Absensi</button>
+        </div>
+      </div>
 
-    <div class="rekap-section">
-      <h2>Rekap Bulanan</h2>
-      <label for="bulan">Pilih Bulan:</label>
-      <input type="month" id="bulan">
-      <button id="tampilRekap">Tampilkan Rekap</button>
+      <!-- Daftar Absensi -->
+      <div class="card">
+        <h2>📋 Daftar Absensi</h2>
+        <table id="tabelAbsensi">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Tanggal</th>
+              <th>Nama</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelBody"></tbody>
+        </table>
+      </div>
 
-      <div id="rekapContainer"></div>
+      <!-- Rekapan Bulanan -->
+      <div class="card">
+        <h2>📆 Rekap Bulanan</h2>
+        <div class="rekap-input">
+          <input type="month" id="bulan" />
+          <button id="tampilRekap">Tampilkan Rekap</button>
+        </div>
+        <div id="rekapContainer"></div>
+      </div>
     </div>
   </main>
+
+  <footer>
+    <p>© 2025 SMK Negeri 1 Bandung | Kelas X TKJ (25 siswa)</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
