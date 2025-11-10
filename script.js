@@ -1,107 +1,120 @@
-// Daftar siswa
-const siswa = [
+// === Data siswa ===
+const namaSiswa = [
  "Ahmad Fadhil ibnu taufiqi", "Adib husen Al-fahrezi", "Ahmad vauzan", "Ahmad fauzi", "Muhammad arif rizqullah",
   "Januarta dwi prayoga astu", "Satria prabowo", "Muhammad rifqi pratama nugroho", "Muhammad hasidi", "UMar nur sa'bani",
   "MUhammad ilzam munir", "Muhammad reza", "Muhammad wahyu ridho", "Muhammad ridho ilahi", "Muhammad fahril maula",
   "Setia agung wibrata", "Muhammad ramadhani pedrosa", "Regina purti", "Putri nur syafira", "Dwi shinta mukarromah",
   "Maula dwi wahyuni", "Inke fatmasari", "Alfia", "shifa nuril", "Aira putri tungga dewi",
-
 ];
 
-const absensiBody = document.getElementById("absensiBody");
-const absensiTable = document.getElementById("absensiTable");
-const simpanBtn = document.getElementById("simpanBtn");
-const rekapContainer = document.getElementById("rekapContainer");
-const loadTableBtn = document.getElementById("loadTable");
+// === Elemen HTML ===
+const namaSelect = document.getElementById("nama");
 const tanggalInput = document.getElementById("tanggal");
-const tampilRekapBtn = document.getElementById("tampilRekap");
+const statusInput = document.getElementById("status");
+const tambahBtn = document.getElementById("tambahBtn");
+const tabelBody = document.getElementById("tabelBody");
+const tampilRekap = document.getElementById("tampilRekap");
+const rekapContainer = document.getElementById("rekapContainer");
 
-// Muat tabel siswa untuk tanggal tertentu
-loadTableBtn.addEventListener("click", () => {
+// === Isi dropdown nama ===
+namaSiswa.forEach(n => {
+  const opt = document.createElement("option");
+  opt.value = n;
+  opt.textContent = n;
+  namaSelect.appendChild(opt);
+});
+
+// === Data localStorage ===
+let dataAbsensi = JSON.parse(localStorage.getItem("dataAbsensi")) || [];
+
+tampilkanTabel();
+
+// === Tambah Data ===
+tambahBtn.addEventListener("click", () => {
   const tanggal = tanggalInput.value;
-  if (!tanggal) {
-    alert("Pilih tanggal terlebih dahulu!");
+  const nama = namaSelect.value;
+  const status = statusInput.value;
+
+  if (!tanggal || !nama) {
+    alert("⚠️ Mohon isi semua kolom!");
     return;
   }
 
-  absensiBody.innerHTML = "";
-  siswa.forEach((nama, i) => {
+  dataAbsensi.push({ tanggal, nama, status });
+  localStorage.setItem("dataAbsensi", JSON.stringify(dataAbsensi));
+  tampilkanTabel();
+  tanggalInput.value = "";
+});
+
+// === Hapus Data ===
+function hapusData(index) {
+  if (confirm("Yakin ingin menghapus data ini?")) {
+    dataAbsensi.splice(index, 1);
+    localStorage.setItem("dataAbsensi", JSON.stringify(dataAbsensi));
+    tampilkanTabel();
+  }
+}
+
+// === Tampilkan Daftar ===
+function tampilkanTabel() {
+  tabelBody.innerHTML = "";
+
+  if (dataAbsensi.length === 0) {
+    tabelBody.innerHTML = `<tr><td colspan="5">Belum ada data absensi.</td></tr>`;
+    return;
+  }
+
+  dataAbsensi.forEach((d, i) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${i + 1}</td>
-      <td>${nama}</td>
-      <td>
-        <select id="status-${i}">
-          <option value="Hadir">Hadir</option>
-          <option value="Izin">Izin</option>
-          <option value="Sakit">Sakit</option>
-          <option value="Alpha">Alpha</option>
-        </select>
-      </td>
+      <td>${d.tanggal}</td>
+      <td>${d.nama}</td>
+      <td>${d.status}</td>
+      <td><button onclick="hapusData(${i})">🗑️</button></td>
     `;
-    absensiBody.appendChild(tr);
+    tabelBody.appendChild(tr);
   });
+}
 
-  absensiTable.classList.remove("hidden");
-  simpanBtn.classList.remove("hidden");
-});
-
-// Simpan absensi ke localStorage
-simpanBtn.addEventListener("click", () => {
-  const tanggal = tanggalInput.value;
-  if (!tanggal) {
-    alert("Isi tanggal terlebih dahulu!");
-    return;
-  }
-
-  const dataAbsensi = siswa.map((nama, i) => ({
-    nama,
-    status: document.getElementById(`status-${i}`).value
-  }));
-
-  let semuaData = JSON.parse(localStorage.getItem("absensi")) || {};
-  semuaData[tanggal] = dataAbsensi;
-  localStorage.setItem("absensi", JSON.stringify(semuaData));
-
-  alert("Data absensi berhasil disimpan!");
-});
-
-// Tampilkan rekap per bulan
-tampilRekapBtn.addEventListener("click", () => {
+// === Rekap Bulanan ===
+tampilRekap.addEventListener("click", () => {
   const bulan = document.getElementById("bulan").value;
   if (!bulan) {
     alert("Pilih bulan terlebih dahulu!");
     return;
   }
 
-  const semuaData = JSON.parse(localStorage.getItem("absensi")) || {};
-  const dataBulan = Object.entries(semuaData)
-    .filter(([tanggal]) => tanggal.startsWith(bulan))
-    .map(([tanggal, data]) => ({ tanggal, data }));
-
+  const dataBulan = dataAbsensi.filter(d => d.tanggal.startsWith(bulan));
   if (dataBulan.length === 0) {
-    rekapContainer.innerHTML = "<p>Tidak ada data untuk bulan ini.</p>";
+    rekapContainer.innerHTML = "<p>Tidak ada absensi pada bulan ini.</p>";
     return;
   }
 
-  let total = { Hadir: 0, Izin: 0, Sakit: 0, Alpha: 0 };
+  const hasil = {};
+  namaSiswa.forEach(n => hasil[n] = { Hadir: 0, Izin: 0, Sakit: 0, Alpa: 0 });
 
-  dataBulan.forEach(({ data }) => {
-    data.forEach(s => total[s.status]++);
-  });
+  dataBulan.forEach(d => hasil[d.nama][d.status]++);
 
-  const totalHari = dataBulan.length;
-  const rekapHTML = `
-    <h3>Rekap Bulan ${bulan}</h3>
-    <p>Jumlah Hari Dicatat: ${totalHari}</p>
+  let html = `
+    <h3>📊 Rekap Bulan ${bulan}</h3>
     <table>
-      <tr><th>Keterangan</th><th>Jumlah</th></tr>
-      <tr><td>Hadir</td><td>${total.Hadir}</td></tr>
-      <tr><td>Izin</td><td>${total.Izin}</td></tr>
-      <tr><td>Sakit</td><td>${total.Sakit}</td></tr>
-      <tr><td>Alpha</td><td>${total.Alpha}</td></tr>
-    </table>
+      <tr>
+        <th>No</th><th>Nama</th><th>Hadir</th><th>Izin</th><th>Sakit</th><th>Alpa</th>
+      </tr>
   `;
-
-  rekapContainer.innerHTML = rekapHTML;
+  namaSiswa.forEach((n, i) => {
+    const r = hasil[n];
+    html += `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${n}</td>
+        <td>${r.Hadir}</td>
+        <td>${r.Izin}</td>
+        <td>${r.Sakit}</td>
+        <td>${r.Alpa}</td>
+      </tr>`;
+  });
+  html += "</table>";
+  rekapContainer.innerHTML = html;
 });
